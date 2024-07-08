@@ -1,5 +1,5 @@
 import http from 'node:http'
-import { index, usuarios, exportCsv} from './controller.js'
+import { index, usuarios, exportCsv, importCsv} from './controller.js'
 
 
 const server = http.createServer((request, response) => {
@@ -24,7 +24,7 @@ const server = http.createServer((request, response) => {
                 break;
 
             case '/api/usuarios/import':
-                exportCsv(request, response)
+                importCsv(request, response)
                 break;
     
             default: response.writeHead(400, { 'Content-Type': 'text/plain, utf-8'})

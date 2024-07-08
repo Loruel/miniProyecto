@@ -33,13 +33,16 @@ export const usuarios = async(request, response) => {
 export const exportCsv = async(request, response) => {
     try {
         const usuarios = await pool.query("SELECT * FROM datos")
+        const cabecera = 'ID,NOMBRES,APELLIDOS,DIRECCION,MAIL,DNI,EDAD,CREACION,TELEFONO\n'
+        const lineas = usuarios[0].map(usuario => {
+            console.log(usuario)
+            return `${usuario.ID},"${usuario.NOMBRES}","${usuario.APELLIOS}","${usuario.DIRECCION}","${usuario.MAIL}",${usuario.DNI},${usuario.EDAD},"${usuario.CREACION}",${usuario.TELEFONO}`}).join('\n')
         const ruta = path.resolve('./public/usuarios.csv')
-        /* const cabecera = [ID, NOMBRES, APELLIDOS, DIRECCION, MAIL, DNI, EDAD, CREACION, TELEFONO] */
 
-        await fs.writeFile(ruta, JSON.stringify(usuarios[0]), 'utf-8')
+        await fs.writeFile(ruta, cabecera + lineas, 'utf-8')
         
         response.writeHead(200, {'Content-Type': 'application/JSON: charset=utf-8'})
-        response.end(JSON.stringify(usuarios[0]))
+        response.end(JSON.stringify({ message: `Usuarios exportados a ${ruta}`}))
     } catch (error) {
         console.error('Error al extraer la tabla', error)
         response.writeHead(500, {'Content-Type': 'text/plain;'})    
@@ -47,6 +50,8 @@ export const exportCsv = async(request, response) => {
         
     }
 }
+
+
 
 export const importCsv = async(request, response) => {
     try {
