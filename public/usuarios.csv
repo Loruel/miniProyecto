@@ -1,11 +1,2 @@
 ID,NOMBRES,APELLIDOS,DIRECCION,MAIL,DNI,EDAD,CREACION,TELEFONO
-1,"Luz Lorena","Nuñez Segura","Av 1","lorenans@base.com",1234567891,29,"02/07/2024",11223344
-2,"Francisco Manuel","Vazquez Luna","Av 1","franciscovl@base.com",1234567892,26,"02/07/2024",11223345
-3,"Ulises","Yglesias Cazares","Av 2","ulisesyc@base.com",1234567893,40,"01/07/2024",11223346
-4,"Giovanni","Rodriguez Escobar","Av 3","giovannire@base.com",1234567894,27,"30/06/2024",11223347
-5,"Raul David","Martinez Gonzalez","Av 4","raulmg@base.com",1234567895,30,"29/06/2024",11223348
-6,"Karen","Zacarias Wong","Av 5","karenzw@base.com",1234567896,31,"28/06/2024",11223349
-7,"Naruto Sasuke","Uchiha Uzimaki","Av 6","narutouu@base.com",1234567897,36,"28/06/2024",11223350
-8,"Antonio","Stark Perez","Av 7","antoniosp@base.com",1234567898,50,"28/06/2024",11223351
-9,"Pedro","Parker Lopez","Av 8","pedropl@base.com",1234567899,26,"27/06/2024",11223352
-10,"Oscar Alberto","Nuñez Real","Av 9","oscarnr@base.com",12345678910,51,"03/07/2024",11223352
+1,Luz Lorena,Nuñez Segura,Av 1,lorenans@base.com,1234567891,29,02/07/2024,11223344

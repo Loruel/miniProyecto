@@ -36,7 +36,7 @@ export const exportCsv = async(request, response) => {
         const cabecera = 'ID,NOMBRES,APELLIDOS,DIRECCION,MAIL,DNI,EDAD,CREACION,TELEFONO\n'
         const lineas = usuarios[0].map(usuario => {
             console.log(usuario)
-            return `${usuario.ID},"${usuario.NOMBRES}","${usuario.APELLIOS}","${usuario.DIRECCION}","${usuario.MAIL}",${usuario.DNI},${usuario.EDAD},"${usuario.CREACION}",${usuario.TELEFONO}`}).join('\n')
+            return `${usuario.ID},${usuario.NOMBRES},${usuario.APELLIDOS},${usuario.DIRECCION},${usuario.MAIL},${usuario.DNI},${usuario.EDAD},${usuario.CREACION},${usuario.TELEFONO}`}).join('\n')
         const ruta = path.resolve('./public/usuarios.csv')
 
         await fs.writeFile(ruta, cabecera + lineas, 'utf-8')
@@ -53,24 +53,21 @@ export const exportCsv = async(request, response) => {
 
 export const importCsv = async(request, response) => {
     try {
-        const ruta = path.resolve('./public/usuarios.txt')
+        const ruta = path.resolve('./public/usuarios.csv')
         const contenido = (await fs.readFile (ruta, 'utf-8')).split('\n')
-        const cabecera = contenido[0].split(',')
         const lineas = contenido.slice(1)
-
-        console.log('Número de líneas a procesar:', cabecera)
 
         for (const linea of lineas){
             const datos = linea.split(',')
-            const sql = `INSERT INTO datos(ID,NOMBRES,APELLIDOS,DIRECCION,MAIL,DNI,EDAD,CREACION,TELEFONO)VALUES (?,?,?,?,?,?,?,?,?)`
 
-            await pool.query(sql, datos)
+            const sql = `INSERT INTO datos (NOMBRES,APELLIDOS,DIRECCION,MAIL,DNI,EDAD,CREACION,TELEFONO)VALUES (?,?,?,?,?,?,?,?)`
+
+            await pool.query(sql, [datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7], datos[8]])
  
-            /* await pool.query(INSERT INTO datos(`${cabecera[0]},${cabecera[1]},${cabecera[2]},${cabecera[3]},${cabecera[4]},${cabecera[5]},${cabecera[6]},${cabecera[7]},${cabecera[8]} VALUES (?,?,?,?,?,?,?,?,?)`, dato )) */
         }
         
         response.writeHead(200, {'Content-Type': 'application/JSON: charset=utf-8'})
-        response.end(JSON.stringify({message: `Usuarios importados a ${ruta}`}))
+        response.end(JSON.stringify({message: `Usuarios Exportados a base de datos`}))
     } catch (error) {
         console.error('Error al importar la tabla', error)
         response.writeHead(500, {'Content-Type': 'text/plain;'})
