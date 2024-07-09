@@ -57,8 +57,25 @@ export const importCsv = async(request, response) => {
         const contenido = (await fs.readFile (ruta, 'utf-8')).split('\n')
         const lineas = contenido.slice(1)
 
+
         for (const linea of lineas){
             const datos = linea.split(',')
+        
+            //No logro que esta partesirve, lo del ID lo maneje que la base solo lo pusiera ya que así lo estableci al crearla pero con estos dos, lo seguire intentando, hasta ahora no lo logre
+
+           /*  const mailVerification = await pool.query('SELECT * FROM datos WHERE MAIL = ?', [datos[4]])
+            const dniVerification = await pool.query('SELECT * FROM datos WHERE DNI = ?', [datos[5]])
+            
+            
+            if (mailVerification) {
+                console.log(`El mail ${datos[4]} ya existe en la base de datos`)
+                continue
+            }
+            if (dniVerification){
+                console.log(`El DNI ${datos[5]} ya existe en la base de datos`)
+                continue
+            } */
+
 
             const sql = `INSERT INTO datos (NOMBRES,APELLIDOS,DIRECCION,MAIL,DNI,EDAD,CREACION,TELEFONO)VALUES (?,?,?,?,?,?,?,?)`
 
